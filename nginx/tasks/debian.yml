@@ -1,0 +1,7 @@
+---
+#open port in firewall to CentOS
+- name: install nginx
+  apt: 
+    name: nginx 
+    state: present 
+    update_cache: yes

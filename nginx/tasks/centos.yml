@@ -1,0 +1,26 @@
+---
+- name: install nginx
+  yum: 
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items: 
+    - epel-release
+    - nginx
+
+- name: set nginx autostart
+  systemd:
+    name: nginx
+    state: started
+    enabled: yes
+
+#open port in firewall to CentOS
+- name: open service http,https ports
+  firewalld:
+    service: "{{ item }}"
+    permanent: yes
+    immediate: yes
+    state: enabled
+  with_items: 
+    - http
+    - https
